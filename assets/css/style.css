@@ -1,0 +1,25 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+
+}
+
+body{
+    width: 100%;
+}
+
+.btn {
+    display: block;
+    margin: 10px;
+}
+
+.container-fluid {
+    width: 75%;
+}
+
+.cityform {
+    width: 75%;
+    text-align: center;
+    margin: auto;
+}
