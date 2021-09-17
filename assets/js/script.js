@@ -1,13 +1,18 @@
 // create elements that tie to the cities
 var searchBtnEl = document.querySelector(".buttonClick");
 var searchInputEl = document.querySelector(".inputValue");
-var currentCity = document.querySelector("#selectedcity");
+var currentCityEl = document.querySelector("#selectedcity");
 var currentTempEl = document.querySelector("#temp");
 var currentWindEl = document.querySelector("#wind");
 var currentHumidityEl = document.querySelector("#humidity");
 var currentuvIndexEl = document.querySelector("#uvindex");
 
+
+
 //var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + searchInputEl.value + "&appid=74e85ca14c0f3844a2a77b651d3c4451";
+
+// OneCall API: https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
+
 
 // API URL: https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
 // https://api.openweathermap.org/data/2.5/weather?q=
@@ -19,11 +24,10 @@ var currentuvIndexEl = document.querySelector("#uvindex");
 searchBtnEl.addEventListener('click', function(event) {
     event.preventDefault();
 
-    fetch("https://api.openweathermap.org/data/2.5/weather?q=" + searchInputEl.value + "&appid=74e85ca14c0f3844a2a77b651d3c4451")
+    fetch("https://api.openweathermap.org/data/2.5/weather?q=" + searchInputEl.value + "&units=imperial&appid=74e85ca14c0f3844a2a77b651d3c4451")
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => currCity(data));
 
-    .catch(err => alert("Wrong city name!"))
 });
 
     
@@ -32,17 +36,70 @@ searchBtnEl.addEventListener('click', function(event) {
 
     // .catch(err => alert("Wrong city name!"))
 
+var currCity = function(data) {
 
-//var searchCity = function() {
-// api.openweathermap.org/data/2.5/weather?q={city name}&appid={API ke
+    
 
-//var currCity = function() {
+    console.log(data);
+    currentCityEl.innerHTML = data['name'];
+    currentTempEl.innerHTML = "Temp: " + Math.round(data['main'].temp) + " f";
+    currentWindEl.innerHTML = "Wind: " + Math.round(data['wind'].speed) + " mph";
+    currentHumidityEl.innerHTML = "Humidity: " + data['main'].humidity;
+    //currentuvIndexEl.innerHTML = "UV Index: " + data['main'].
+
+    var icon = data['weather'][0].icon;
+    console.log(icon)
+    var iconurl = "http://openweathermap.org/img/w/" + icon + ".png";
+    $('#wicon').attr('src', iconurl);
+
+    
+    getUV(data);
+    forecast(data);
+
+    }
+
+var getUV = function(data) {
+
+    var coordinates = "lat=" + (data.coord.lat) + "&lon=" + (data.coord.lon);
+    console.log(coordinates);
+
+    fetch("https://api.openweathermap.org/data/2.5/onecall?" + coordinates + "&appid=74e85ca14c0f3844a2a77b651d3c4451")
+    .then(response => response.json())
+    .then(uvData => showUV(uvData));
+    
+
+}
+
+var showUV = function(uvData) {
+    console.log(uvData);
+
+    currentuvIndexEl.innerHTML = "UV Index: " + uvData.current.uvi;
+}
 
 
+    
 
 
-// var forecast = function() {
+var forecast = function(data) {
 
+var forecastDateEl = document.querySelector("#foreDate");
+var forecastTempEl = document.querySelector("#foreTemp");
+var forecastWindEl = document.querySelector("#foreWind");
+var forecastHumidity = document.querySelector("#foreHum");
+
+console.log(data);
+    for(var i =0; i <= 5; i++){
+        
+
+        
+        forecastDateEl.innerHTML = data['name'];
+        forecastTempEl.innerHTML = "Temp: " + Math.round(data['main'].temp);
+        forecastWindEl.innerHTML = "Wind: " + Math.round(data['wind'].speed);
+        forecastHumidity.innerHTML = "Humidity: " + data['main'].humidity;
+        
+    }
+
+}
 
 
 // lat, lon	required	Geographical coordinates (latitude, longitude)
