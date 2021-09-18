@@ -5,7 +5,7 @@ var currentCityEl = document.querySelector("#selectedcity");
 var currentTempEl = document.querySelector("#temp");
 var currentWindEl = document.querySelector("#wind");
 var currentHumidityEl = document.querySelector("#humidity");
-var currentuvIndexEl = document.querySelector("#uvindex");
+var currentuvIndexEl = document.querySelector(".uvSpan");
 
 
 
@@ -42,7 +42,7 @@ var currCity = function(data) {
 
     console.log(data);
     currentCityEl.innerHTML = data['name'];
-    currentTempEl.innerHTML = "Temp: " + Math.round(data['main'].temp) + " f";
+    currentTempEl.innerHTML = "Temp: " + Math.round(data['main'].temp) + "\u00B0 F";
     currentWindEl.innerHTML = "Wind: " + Math.round(data['wind'].speed) + " mph";
     currentHumidityEl.innerHTML = "Humidity: " + data['main'].humidity;
     //currentuvIndexEl.innerHTML = "UV Index: " + data['main'].
@@ -73,31 +73,48 @@ var getUV = function(data) {
 var showUV = function(uvData) {
     console.log(uvData);
 
-    currentuvIndexEl.innerHTML = "UV Index: " + uvData.current.uvi;
+    currentuvIndexEl.textContent = "UV Index: " + uvData.current.uvi;
+
+    if(uvData.current.uvi <= 2){
+        $('#uvindex').css('background-color', 'green');
+    } else if (uvData.current.uvi > 2 && uvData.current.uvi < 7) {
+        $('#uvindex').css('background-color', 'orange');
+    } else if(uvData.current.uvi >= 7){
+        $('#uvindex').css('background-color', 'red');
+    }
+
+    forecast(uvData);
 }
 
 
     
 
 
-var forecast = function(data) {
+var forecast = function(uvData) {
 
 var forecastDateEl = document.querySelector("#foreDate");
 var forecastTempEl = document.querySelector("#foreTemp");
 var forecastWindEl = document.querySelector("#foreWind");
 var forecastHumidity = document.querySelector("#foreHum");
 
-console.log(data);
-    for(var i =0; i <= 5; i++){
+console.log(uvData);
+
+
+
+        fetch("https://api.openweathermap.org/data/2.5/forecast?q=" + searchInputEl.value + "&appid=74e85ca14c0f3844a2a77b651d3c4451")
+        .then(response => response.json())
+        .then(data => obj = data)
+        .then(() => console.log(obj))
         
 
+    
         
-        forecastDateEl.innerHTML = data['name'];
-        forecastTempEl.innerHTML = "Temp: " + Math.round(data['main'].temp);
-        forecastWindEl.innerHTML = "Wind: " + Math.round(data['wind'].speed);
-        forecastHumidity.innerHTML = "Humidity: " + data['main'].humidity;
+        forecastDateEl.innerHTML = foreData.list[1].dt_txt
+        // forecastTempEl.innerHTML = "Temp: " + Math.round(data['main'].temp);
+        // forecastWindEl.innerHTML = "Wind: " + Math.round(data['wind'].speed);
+        // forecastHumidity.innerHTML = "Humidity: " + data['main'].humidity;
         
-    }
+
 
 }
 
