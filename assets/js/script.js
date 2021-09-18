@@ -76,10 +76,14 @@ var showUV = function(uvData) {
     currentuvIndexEl.textContent = "UV Index: " + uvData.current.uvi;
 
     if(uvData.current.uvi <= 2){
-        $('#uvindex').css('background-color', 'green');
+        $('#uvindex').css('color','white');
+        $('#uvindex').css('background-color','green');
+
     } else if (uvData.current.uvi > 2 && uvData.current.uvi < 7) {
+        $('#uvindex').css('color', 'white');
         $('#uvindex').css('background-color', 'orange');
     } else if(uvData.current.uvi >= 7){
+        $('#uvindex').css('color', 'white');
         $('#uvindex').css('background-color', 'red');
     }
 
@@ -92,30 +96,34 @@ var showUV = function(uvData) {
 
 var forecast = function(uvData) {
 
-var forecastDateEl = document.querySelector("#foreDate");
-var forecastTempEl = document.querySelector("#foreTemp");
-var forecastWindEl = document.querySelector("#foreWind");
-var forecastHumidity = document.querySelector("#foreHum");
-
 console.log(uvData);
 
-
-
-        fetch("https://api.openweathermap.org/data/2.5/forecast?q=" + searchInputEl.value + "&appid=74e85ca14c0f3844a2a77b651d3c4451")
+        fetch("https://api.openweathermap.org/data/2.5/forecast?q=" + searchInputEl.value + "&units=imperial&appid=74e85ca14c0f3844a2a77b651d3c4451")
         .then(response => response.json())
         .then(data => obj = data)
-        .then(() => console.log(obj))
+        .then((obj) => {
         
+        for(var i = 0; i <= 5; i++){
 
-    
+            var foreIcon = obj.list[(i+1) * 8-1].weather[0].icon;
+            console.log(foreIcon)
+            var iconurl = "http://openweathermap.org/img/w/" + foreIcon + ".png";
+            $('.foreIcon' +  i).attr('src', iconurl);
+
+            forecastDateEl = document.querySelector(".foreDate" + i);
+            forecastTempEl = document.querySelector(".foreTemp" + i);
+            forecastWindEl = document.querySelector(".foreWind" + i);
+            forecastHumidity = document.querySelector(".foreHum" + i);
+
+            console.log(obj);
+            forecastDateEl.innerHTML = (obj.list[(i+1) * 8 - 1].dt_txt.slice(0,-8));
+            forecastTempEl.innerHTML = "Temp: " + Math.round(obj.list[(i+1) * 8 -1].main.temp) + "\u00B0 F";
+            forecastWindEl.innerHTML = "Wind: " + Math.round(obj.list[(i+1) * 8 - 1].wind.speed) + "mph";
+            forecastHumidity.innerHTML = "Humidity: " + (obj.list[(i+1) * 8 - 1].main.humidity);   
+       
+        }
+    })
         
-        forecastDateEl.innerHTML = foreData.list[1].dt_txt
-        // forecastTempEl.innerHTML = "Temp: " + Math.round(data['main'].temp);
-        // forecastWindEl.innerHTML = "Wind: " + Math.round(data['wind'].speed);
-        // forecastHumidity.innerHTML = "Humidity: " + data['main'].humidity;
-        
-
-
 }
 
 
