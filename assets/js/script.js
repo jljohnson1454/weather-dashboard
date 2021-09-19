@@ -45,11 +45,16 @@ var displaySearch = function(data, searchInputEl){
 
     var historyButton = document.createElement('button');
     historyButton.type = 'button';
-    historyButton.innerHTML = searchInputEl.value;
-    historyButton.className = 'btn-styled';
+    historyButton.innerHTML = searchInputEl.value.charAt(0).toUpperCase() + searchInputEl.value.slice(1);
+    historyButton.className = 'btn btn-info btn-styled';
+  //  var newButton = historyButton.charAt(0).toUpperCase() + historyButton.slice(1);
 
     var container = document.getElementById('city-container');
-    container.appendChild(historyButton)
+    container.appendChild(historyButton);
+
+    
+    console.log(historyButton.textContent)
+
 }
 
 
