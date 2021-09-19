@@ -31,3 +31,26 @@ body{
 #wicon1 {
     display: none;
 }
+
+#search {
+    margin: auto;
+    margin-top: 5%;;
+}
+
+#recent {
+    margin: auto;
+    margin-top: 5%;
+    
+}
+
+#city-search-term {
+    font-size:x-large
+}
+
+.subtitle {
+    border-bottom: 2px solid black;
+}
+
+
+
+

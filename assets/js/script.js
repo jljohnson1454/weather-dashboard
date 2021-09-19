@@ -20,6 +20,8 @@ var cityHistoryEl = document.querySelector("#city-search-term")
 // api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
 // Fetch API
 
+
+// 
 searchBtnEl.addEventListener('click', function(event) {
     event.preventDefault();
     $("#wicon").show();
