@@ -35,12 +35,21 @@ searchBtnEl.addEventListener('click', function(event) {
 // Show search history
 var displaySearch = function(data, searchInputEl){
     console.log(data);
-    console.log(searchInputEl.value);
+
+    var receivedData = JSON.stringify(data);
 
     cityContainerEl.textContent = "";
     cityHistoryEl.textContent = searchInputEl.value.charAt(0).toUpperCase() + searchInputEl.value.slice(1);
 
-    localStorage.setItem(searchInputEl.value, data);
+    localStorage.setItem(searchInputEl.value, receivedData);
+
+    var historyButton = document.createElement('button');
+    historyButton.type = 'button';
+    historyButton.innerHTML = searchInputEl.value;
+    historyButton.className = 'btn-styled';
+
+    var container = document.getElementById('city-container');
+    container.appendChild(historyButton)
 }
 
 
