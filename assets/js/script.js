@@ -21,7 +21,7 @@ var cityHistoryEl = document.querySelector("#city-search-term")
 // Fetch API
 
 
-// 
+//  Click event to start fetching API information
 searchBtnEl.addEventListener('click', function(event) {
     event.preventDefault();
     $("#wicon").show();
@@ -32,6 +32,7 @@ searchBtnEl.addEventListener('click', function(event) {
     displaySearch(data, searchInputEl)})
 });
 
+// Show search history
 var displaySearch = function(data, searchInputEl){
     console.log(data);
     console.log(searchInputEl.value);
@@ -42,6 +43,8 @@ var displaySearch = function(data, searchInputEl){
     localStorage.setItem(searchInputEl.value, data);
 }
 
+
+// Shows weather conditions for current city and date
 var currCity = function(data) {
     
     console.log(data);
@@ -58,6 +61,7 @@ var currCity = function(data) {
     getUV(data);
     }
 
+// Grabs the UV information from the OneCall API
 var getUV = function(data) {
 
     var coordinates = "lat=" + (data.coord.lat) + "&lon=" + (data.coord.lon);
@@ -68,6 +72,7 @@ var getUV = function(data) {
     .then(uvData => showUV(uvData));
 }
 
+// Displays the UV Index with color coding for mild to severe conditions
 var showUV = function(uvData) {
     console.log(uvData);
 
@@ -88,6 +93,7 @@ var showUV = function(uvData) {
     forecast(uvData);
 }
 
+// Five Day Forecast
 var forecast = function() {
 
         fetch("https://api.openweathermap.org/data/2.5/forecast?q=" + searchInputEl.value + "&units=imperial&appid=74e85ca14c0f3844a2a77b651d3c4451")
