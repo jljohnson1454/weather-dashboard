@@ -6,6 +6,9 @@ var currentTempEl = document.querySelector("#temp");
 var currentWindEl = document.querySelector("#wind");
 var currentHumidityEl = document.querySelector("#humidity");
 var currentuvIndexEl = document.querySelector(".uvSpan");
+var cityContainerEl = document.querySelector("#city-container");
+var cityHistoryEl = document.querySelector("#city-search-term")
+
 
 
 
@@ -23,13 +26,50 @@ var currentuvIndexEl = document.querySelector(".uvSpan");
 
 searchBtnEl.addEventListener('click', function(event) {
     event.preventDefault();
-
+    $("#wicon").show();
     fetch("https://api.openweathermap.org/data/2.5/weather?q=" + searchInputEl.value + "&units=imperial&appid=74e85ca14c0f3844a2a77b651d3c4451")
     .then(response => response.json())
-    .then(data => currCity(data));
-
+    .then((data) => {
+    currCity(data)    
+    displaySearch(data, searchInputEl)})
 });
 
+var displaySearch = function(data, searchInputEl){
+    
+
+    console.log(data);
+    console.log(searchInputEl.value);
+
+    cityContainerEl.textContent = "";
+    cityHistoryEl.textContent = searchInputEl.value.charAt(0).toUpperCase() + searchInputEl.value.slice(1);
+
+    localStorage.setItem(searchInputEl.value, data);
+
+    // for (var i = 0; i < 5; i++) {
+    //     // format repo name
+        
+      
+    //     // create a container for each city
+    //     var searchEl = document.createElement("div");
+    //     searchEl.classList = "list-item flex-row justify-space-between align-center";
+      
+    //     // create a span element to hold repository name
+    //     var cityNameEl = document.createElement("span");
+    //     cityNameEl.textContent = repoName;
+      
+    //     // append to container
+    //     repoEl.appendChild(titleEl);
+      
+    //     // append container to the dom
+    //     repoContainerEl.appendChild(repoEl);
+
+   // }
+
+    // // response.json().then(function(data) {
+    // //     displaySearch(data, user);
+    // //   });
+    // }
+}
     
     // .then(response => response.json())
     // .then(data => console.log(data))
@@ -37,7 +77,6 @@ searchBtnEl.addEventListener('click', function(event) {
     // .catch(err => alert("Wrong city name!"))
 
 var currCity = function(data) {
-
     
 
     console.log(data);
@@ -54,7 +93,7 @@ var currCity = function(data) {
 
     
     getUV(data);
-    forecast(data);
+    //forecast(data);
 
     }
 
@@ -94,20 +133,32 @@ var showUV = function(uvData) {
     
 
 
-var forecast = function(uvData) {
+var forecast = function() {
 
-console.log(uvData);
+   
 
         fetch("https://api.openweathermap.org/data/2.5/forecast?q=" + searchInputEl.value + "&units=imperial&appid=74e85ca14c0f3844a2a77b651d3c4451")
         .then(response => response.json())
         .then(data => obj = data)
         .then((obj) => {
         
-        for(var i = 0; i <= 5; i++){
+            
+        
+            for(var i = 0; i < 5; i++){
+                var randomIcon = obj.list[(i+1) * 8 -1];
+                var randomWeather = randomIcon.weather[0];
 
-            var foreIcon = obj.list[(i+1) * 8-1].weather[0].icon;
-            console.log(foreIcon)
+                
+                
+                // if(obj.list[(i+1) * 8-1].weather[0].icon) {
+            var foreIcon = randomWeather.icon;
+            
+            
+            // console.log(obj.list[(i+1) * 8-1])
             var iconurl = "http://openweathermap.org/img/w/" + foreIcon + ".png";
+            // else{
+            //     console.log('noicon')
+            // }
             $('.foreIcon' +  i).attr('src', iconurl);
 
             forecastDateEl = document.querySelector(".foreDate" + i);
@@ -115,13 +166,19 @@ console.log(uvData);
             forecastWindEl = document.querySelector(".foreWind" + i);
             forecastHumidity = document.querySelector(".foreHum" + i);
 
+                var foreDate = (obj.list[(i+1) * 8 - 1].dt_txt.slice(0,-8));
+
             console.log(obj);
-            forecastDateEl.innerHTML = (obj.list[(i+1) * 8 - 1].dt_txt.slice(0,-8));
+            forecastDateEl.innerHTML = moment(foreDate).format('l');
             forecastTempEl.innerHTML = "Temp: " + Math.round(obj.list[(i+1) * 8 -1].main.temp) + "\u00B0 F";
             forecastWindEl.innerHTML = "Wind: " + Math.round(obj.list[(i+1) * 8 - 1].wind.speed) + "mph";
             forecastHumidity.innerHTML = "Humidity: " + (obj.list[(i+1) * 8 - 1].main.humidity);   
        
+            $(".foreIcon" + i).show();
+                
+        
         }
+        
     })
         
 }
@@ -141,4 +198,5 @@ console.log(uvData);
 // hourly
 // daily
 // alerts
+
 
