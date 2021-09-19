@@ -9,6 +9,12 @@ body{
     width: 100%;
 }
 
+#title {
+    padding: 2%;
+    color: white;
+    background-image: linear-gradient(to right, rgb(11, 15, 85) , rgb(126, 154, 229));
+}
+
 .btn {
     display: block;
     margin: 10px;
@@ -51,6 +57,14 @@ body{
     border-bottom: 2px solid black;
 }
 
+.card {
+    background-color: rgb(98, 98, 161);
+    color: white;
+}
+
+button {
+    width: 100%;
+}
 
 
 

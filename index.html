@@ -14,7 +14,7 @@
 
 <body>
     <header class="flex-column min-100-vh">
-        <h1 class="app-title text-center">Weather Dashboard</h1>
+        <h1 id="title" class="app-title text-center">Weather Dashboard</h1>
     </header>
     <div class="container-fluid">
         <div class="row text-center">
@@ -24,7 +24,7 @@
                 <button type="submit" id="search" class="buttonClick btn btn-primary btn-lg">Search</button>
                 <div id="recent" class="col-12 col-md-8">
                     <h2 class="subtitle">Recent Searches: </h2>
-                    <span id="city-search-term"></span>
+                    <button class="btn btn-info"><span id="city-search-term"></span></button>
                     <div id="city-container" class="list-group"></div>
                 </div>
             </form>
