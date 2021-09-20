@@ -7,7 +7,7 @@ var currentWindEl = document.querySelector("#wind");
 var currentHumidityEl = document.querySelector("#humidity");
 var currentuvIndexEl = document.querySelector(".uvSpan");
 var cityContainerEl = document.querySelector("#city-container");
-var cityHistoryEl = document.querySelector("#city-search-term")
+//ar cityHistoryEl = document.querySelector("#city-search-term")
 
 //var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + searchInputEl.value + "&appid=74e85ca14c0f3844a2a77b651d3c4451";
 
@@ -38,8 +38,8 @@ var displaySearch = function(data, searchInputEl){
 
     var receivedData = JSON.stringify(data);
 
-    cityContainerEl.textContent = "";
-    cityHistoryEl.textContent = searchInputEl.value.charAt(0).toUpperCase() + searchInputEl.value.slice(1);
+    //cityContainerEl.textContent = "";
+    //cityHistoryEl.textContent = searchInputEl.value.charAt(0).toUpperCase() + searchInputEl.value.slice(1);
 
     localStorage.setItem(searchInputEl.value, receivedData);
 

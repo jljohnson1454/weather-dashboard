@@ -17,6 +17,7 @@ Live Website:
 Github Repo:
 
 ## Screenshot
+![Screenshot](./assets/images/screenshot.jpg)
 
 ## References
 Module 6 in Bootcamp Courses
