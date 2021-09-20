@@ -62,8 +62,42 @@ body{
     color: white;
 }
 
+.card-deck {
+    width: auto;
+}
+
 button {
     width: 100%;
+}
+
+
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media screen and (max-width: 1200px) {
+
+* {
+    margin: auto;
+    flex-flow: column;
+    justify-content: center;
+    text-align: center;
+    
+}
+
+.card {
+ margin: auto;
+}
+
+#search {
+    width: auto;
+}
+
+.card-deck {
+    flex-flow: column;
+    justify-content: center;
+    width: 50%;
+    margin: auto;
+}
+
 }
 
 /* Width at 480px and below */

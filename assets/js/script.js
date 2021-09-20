@@ -52,9 +52,6 @@ var displaySearch = function(data, searchInputEl){
     var container = document.getElementById('city-container');
     container.appendChild(historyButton);
 
-    
-    console.log(historyButton.textContent)
-
 }
 
 
@@ -62,14 +59,13 @@ var displaySearch = function(data, searchInputEl){
 var currCity = function(data) {
     
     console.log(data);
-    currentCityEl.innerHTML = data['name'];
+    currentCityEl.innerHTML = data['name'] + "<br>" + moment().format('L');
     currentTempEl.innerHTML = "Temp: " + Math.round(data['main'].temp) + "\u00B0 F";
     currentWindEl.innerHTML = "Wind: " + Math.round(data['wind'].speed) + " mph";
     currentHumidityEl.innerHTML = "Humidity: " + data['main'].humidity;
 
-    var icon = data['weather'][0].icon;
-    console.log(icon)
-    var iconurl = "http://openweathermap.org/img/w/" + icon + ".png";
+    var wicon = data['weather'][0].icon;
+    var iconurl = "http://openweathermap.org/img/w/" + wicon + ".png";
     $('#wicon').attr('src', iconurl);
 
     getUV(data);
