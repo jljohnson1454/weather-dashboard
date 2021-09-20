@@ -14,7 +14,7 @@ The purpose of this assignment was to create a weather dashboard utlizing APIs t
 
 Live Website:
 
-Github Repo:
+Github Repo: https://github.com/jljohnson1454/weather-dashboard
 
 ## Screenshot
 ![Screenshot](./assets/images/screenshot.jpg)
