@@ -12,7 +12,7 @@ The purpose of this assignment was to create a weather dashboard utlizing APIs t
 
 ## Website URLs
 
-Live Website:
+Live Website: https://jljohnson1454.github.io/weather-dashboard/
 
 Github Repo: https://github.com/jljohnson1454/weather-dashboard
 
