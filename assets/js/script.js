@@ -22,8 +22,22 @@ var cityContainerEl = document.querySelector("#city-container");
 
 
 //  Click event to start fetching API information
+
+var loadHistory = function() {
+
+    localStorage.getItem(searchInputEl.value, receivedData);
+}
+
+//
+
+
 searchBtnEl.addEventListener('click', function(event) {
     event.preventDefault();
+    
+    if (searchInputEl.value == "") {
+        alert("Please enter a valid city");
+      }
+      
     $("#wicon").show();
     fetch("https://api.openweathermap.org/data/2.5/weather?q=" + searchInputEl.value + "&units=imperial&appid=74e85ca14c0f3844a2a77b651d3c4451")
     .then(response => response.json())
@@ -51,6 +65,8 @@ var displaySearch = function(data, searchInputEl){
 
     var container = document.getElementById('city-container');
     container.appendChild(historyButton);
+
+    historyButton.addEventListener('click', currCity())
 
 }
 
@@ -138,5 +154,6 @@ var forecast = function() {
     })
 }
 
+loadHistory();
 
 
